@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <time.h>
 
-// 任务执行函数
+// 任务执行函数, 由 task 进行调用
 void task_func(struct nTask *task) {
     int task_id = *(int *)task->user_data;
     

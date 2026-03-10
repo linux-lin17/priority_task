@@ -64,7 +64,7 @@ void *nThreadPoolCallback(void *arg) {
         for (int i = NUM_PRIORITY_LEVELS - 1; i >= 0; i--) {
             if (worker->manager->tasks[i] != NULL) {
                 task = worker->manager->tasks[i];
-                LIST_REMOVE(task, worker->manager->tasks[i]);
+                LIST_REMOVE(task, worker->manager->tasks[i]);   
                 break;
             }
         }
@@ -113,7 +113,12 @@ int nPriorityThreadPoolCreate(PriorityThreadPool *pool, int numWorkers) {
         int ret = pthread_create(&worker->threadid, NULL, nThreadPoolCallback, worker);
         if (ret) {
             perror("pthread_create");
-            LIST_REMOVE(worker, pool->workers);
+            /*
+            传入一级指针即可, pool 是指针; PriorityThreadPool 中的 works 也是指针
+            传入 PriorityThreadPool 类型的指针, 就是拿到了结构体中 works 的二级指针
+            */
+            LIST_REMOVE(worker, pool->workers);  
+
             free(worker);
             return -3;
         }
