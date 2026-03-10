@@ -121,7 +121,7 @@ int nPriorityThreadPoolCreate(PriorityThreadPool *pool, int numWorkers) {
 
             free(worker);
             return -3;
-        }
+        } 
     }  
 
     printf("[✓] 创建优先级线程池成功，工作线程数: %d\n", numWorkers);
